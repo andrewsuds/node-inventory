@@ -17,7 +17,7 @@ const pool = new Pool({
     process.env.PRODUCTION === "true"
       ? process.env.INTERNAL
       : process.env.EXTERNAL,
-  ssl: true,
+  ssl: process.env.PRODUCTION === "true" ? false : true,
 });
 
 types.setTypeParser(types.builtins.NUMERIC, (value) => {
