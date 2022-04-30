@@ -39,7 +39,7 @@ app.get("/all", (req, res) => {
 
 app.get("/allbuy", (req, res) => {
   pool.query(
-    "SELECT * FROM buyreceipt ORDER BY productID DESC",
+    "SELECT buyreceiptid, buyprice, buytotal, qty, date, name FROM buyreceipt INNER JOIN product on buyreceipt.productid = product.productid ORDER BY buyreceiptid DESC;",
     (err, result) => {
       if (err) {
         console.log(err);
@@ -54,7 +54,7 @@ app.get("/allbuy", (req, res) => {
 
 app.get("/allsell", (req, res) => {
   pool.query(
-    "SELECT * FROM sellreceipt ORDER BY productID DESC",
+    "SELECT sellreceiptid, sellprice, buyprice, selltotal, buytotal, profit, qty, date, name FROM sellreceipt INNER JOIN product on sellreceipt.productid = product.productid ORDER BY sellreceiptid DESC;",
     (err, result) => {
       if (err) {
         console.log(err);
