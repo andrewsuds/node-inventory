@@ -41,6 +41,21 @@ app.get("/all", (req, res) => {
   });
 });
 
+app.get("/allwithstock", (req, res) => {
+  pool.query(
+    "SELECT * FROM product WHERE qtyonhand > 0 ORDER BY productID DESC",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.json(err.detail);
+      }
+      if (result) {
+        res.json(result.rows);
+      }
+    }
+  );
+});
+
 app.get("/allbuy", (req, res) => {
   pool.query(
     "SELECT buyreceiptid, buyprice, buytotal, qty, date, name FROM buyreceipt INNER JOIN product on buyreceipt.productid = product.productid ORDER BY buyreceiptid DESC;",
